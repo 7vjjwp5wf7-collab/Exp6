@@ -1,0 +1,287 @@
+/* ── Reset & Base ─────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:          #0f0f13;
+  --surface:     #18181f;
+  --surface2:    #22222c;
+  --border:      rgba(255, 255, 255, 0.08);
+  --border2:     rgba(255, 255, 255, 0.14);
+  --text:        #f0f0f5;
+  --muted:       #8888a0;
+  --accent:      #7c6ef5;
+  --accent2:     #a594ff;
+  --green:       #22c55e;
+  --green-bg:    rgba(34, 197, 94, 0.12);
+  --red:         #ef4444;
+  --red-bg:      rgba(239, 68, 68, 0.12);
+  --amber:       #f59e0b;
+  --font:        'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono:        'Courier New', Courier, monospace;
+  --radius:      14px;
+  --radius-sm:   8px;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+}
+
+/* Subtle dot-grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(124, 110, 245, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Page Header ──────────────────────────────── */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  background: rgba(124, 110, 245, 0.12);
+  border: 1px solid rgba(124, 110, 245, 0.25);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.page-header p {
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.page-header code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--accent2);
+}
+
+/* ── Product Grid ─────────────────────────────── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ── ProductCard ──────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  animation: fadeUp 0.5s ease both;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(124, 110, 245, 0.15);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.12s; }
+.card:nth-child(3) { animation-delay: 0.19s; }
+.card:nth-child(4) { animation-delay: 0.26s; }
+.card:nth-child(5) { animation-delay: 0.33s; }
+
+/* Card image area */
+.card-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 0.85;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.card-category {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* Stars */
+.card-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.star { font-size: 13px; }
+.star.filled { color: var(--amber); }
+.star.empty  { color: var(--border2); }
+
+/* Price row */
+.card-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.price-original {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.discount-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* ✅ Stock Status — Green / Red */
+.stock-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+
+.stock-status.in-stock {
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.stock-status.out-of-stock {
+  color: var(--red);
+  background: var(--red-bg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.in-stock .status-dot    { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.out-of-stock .status-dot { background: var(--red); }
+
+/* Add to Cart button */
+.cart-btn {
+  width: 100%;
+  margin-top: auto;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.cart-btn:not(:disabled):hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(124, 110, 245, 0.35);
+}
+
+.cart-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.cart-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 600px) {
+  body { padding: 1.5rem 1rem; }
+  .product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { padding: 1rem; }
+}
+
+@media (max-width: 380px) {
+  .product-grid { grid-template-columns: 1fr; }
+}
